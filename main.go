@@ -3,6 +3,8 @@ package main
 import (
 	"neptune/core"
 
+	"neptune/adapters"
+
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -20,6 +22,14 @@ func main() {
 	// Migrate the schema
 	db.AutoMigrate(&core.Order{})
 
+	// Set up service and adapters
+	orderRepo := adapters.NewGormOrderRepository(db)
+	orderService := core.NewOrderService(orderRepo)
+	orderHandler := adapters.NewHttpOrderHandler(orderService)
+
+	// Define routes
+	app.Post("/order", orderHandler.CreateOrder)
+
 	// Start the server
-	app.Listen(":8000")
+	app.Listen(":8081")
 }

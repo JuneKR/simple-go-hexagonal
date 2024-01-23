@@ -11,7 +11,7 @@ type orderServiceImpl struct {
 }
 
 // FUNC RETURN INSTANCE OF ORDER SERVICE
-func newOrderService(repo OrderRepository) OrderService {
+func NewOrderService(repo OrderRepository) OrderService {
 	return &orderServiceImpl{repo: repo}
 }
 
