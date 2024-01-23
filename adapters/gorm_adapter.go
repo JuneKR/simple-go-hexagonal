@@ -6,6 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
+/* SECONDARY ADAPTER */
 type GormOrderRepository struct {
 	db *gorm.DB
 }
